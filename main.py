@@ -19,7 +19,8 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # website to scrap
-    url = "https://www.geeksforgeeks.org/how-to-extract-pdf-tables-in-python/"
+
+    url = "https://ccisd.net"
 
     # get the url from requests get method
     read = requests.get(url)
