@@ -19,8 +19,9 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # website to scrap
-
-    url = "https://ccisd.net"
+    pdfname = input("Enter the name of the pdf you are searching for: ")
+    # Credit to Jason for string concatenation clarification
+    url = "https://www.google.com/search?q="+pdfname+"+free+PDF"
 
     # get the url from requests get method
     read = requests.get(url)
@@ -30,17 +31,17 @@ if __name__ == '__main__':
 
     # Parse the html content
     soup = BeautifulSoup(html_content, "html.parser")
-
     # This is the getting pdf part
-
+    print(soup)
     # created an empty list for putting the pdfs
     list_of_pdf = set()
 
     # accessed the first p tag in the html
-    l = soup.find('p')
+    # NEEDS TO GET ALL P
+    #l = soup.find('href="/url?q=')
 
     # accessed all the anchors tag from given p tag
-    p = l.find_all('a')
+    p = soup.find_all('a')
 
     # iterate through p for getting all the href links
     for link in p:
