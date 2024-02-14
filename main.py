@@ -20,8 +20,9 @@ def print_hi(name):
 if __name__ == '__main__':
     # website to scrap
     pdfname = input("Enter the name of the pdf you are searching for: ")
+    # info on the find and replace method https://www.geeksforgeeks.org/python-string-replace/
     # Credit to Jason for string concatenation clarification
-    url = "https://www.google.com/search?q="+pdfname+"+free+PDF"
+    url = "https://www.google.com/search?q="+pdfname.replace(" ", "+")+"+free+PDF"
 
     # get the url from requests get method
     read = requests.get(url)
@@ -32,7 +33,6 @@ if __name__ == '__main__':
     # Parse the html content
     soup = BeautifulSoup(html_content, "html.parser")
     # This is the getting pdf part
-    print(soup)
     # created an empty list for putting the pdfs
     list_of_pdf = set()
 
@@ -46,18 +46,20 @@ if __name__ == '__main__':
     # iterate through p for getting all the href links
     for link in p:
         # original html links
-        print("links: ", link.get('href'))
-        print("\n")
+        # info on finding if string contains substring from: https://stackoverflow.com/questions/3437059/does-python-have-a-string-contains-substring-method
+        href_link = link.get('href')
+        if "/url?q=" in href_link and "http" in href_link:
+            base_link = href_link[href_link.find("/url?q")+7:]
+            # get the url from requests get method
+            print(base_link)
+            read = requests.get(base_link)
 
-        # converting the extension from .html to .pdf
-        pdf_link = (link.get('href')[:-5]) + ".pdf"
+            # full html content
+            html_content = read.content
 
-        # converted to .pdf
-        print("converted pdf links: ", pdf_link)
-        print("\n")
-
-        # added all the pdf links to set
-        list_of_pdf.add(pdf_link)
+            # Parse the html content
+            soup = BeautifulSoup(html_content, "html.parser")
+            new_p = soup.find_all('a')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
