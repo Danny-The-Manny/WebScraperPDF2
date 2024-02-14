@@ -33,6 +33,7 @@ if __name__ == '__main__':
     # Parse the html content
     soup = BeautifulSoup(html_content, "html.parser")
     # This is the getting pdf part
+    print(soup)
     # created an empty list for putting the pdfs
     list_of_pdf = set()
 
@@ -41,6 +42,7 @@ if __name__ == '__main__':
     #l = soup.find('href="/url?q=')
 
     # accessed all the anchors tag from given p tag
+    # find out how to get the stuff in the cite tage, this is the important link
     p = soup.find_all('a')
 
     # iterate through p for getting all the href links
@@ -52,14 +54,6 @@ if __name__ == '__main__':
             base_link = href_link[href_link.find("/url?q")+7:]
             # get the url from requests get method
             print(base_link)
-            read = requests.get(base_link)
-
-            # full html content
-            html_content = read.content
-
-            # Parse the html content
-            soup = BeautifulSoup(html_content, "html.parser")
-            new_p = soup.find_all('a')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
