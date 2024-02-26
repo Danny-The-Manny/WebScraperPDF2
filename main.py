@@ -56,25 +56,29 @@ if __name__ == '__main__':
                 base_link = base_link[:base_link.find("&sa=")]
                 # credit for info on try acceptclauses
                 read = requests.get(base_link)
-                html_content = read.content
-                new_soup = BeautifulSoup(html_content, "html.parser")
-                p = soup.find_all('a')
-                for new_link in p:
-                    try:
-                        new_href_link = link.get('href')
-                        if "/url?q=" in new_href_link and "http" in new_href_link:
-                            final_link = new_href_link[new_href_link.find("/url?q") + 7:]
-                            final_link = final_link[:final_link.find("&sa=")]
-                            if ".pdf" in final_link:
-                                list_of_pdf.add(base_link)
-                    except Exception:
-                        x = 0
+                if ".pdf" in base_link:
+                    list_of_pdf.add(base_link)
+                    print(base_link)
+                else:
+                    html_content = read.content
+                    new_soup = BeautifulSoup(html_content, "html.parser")
+                    g = soup.find_all('a')
+                    for new_link in g:
+                        try:
+                            new_href_link = link.get('href')
+                            if "/url?q=" in new_href_link and "http" in new_href_link:
+                                final_link = new_href_link[new_href_link.find("/url?q") + 7:]
+                                final_link = final_link[:final_link.find("&sa=")]
+                                if ".pdf" in final_link:
+                                    list_of_pdf.add(base_link)
+                                    print(base_link)
+                                    break
+                        except Exception:
+                            x = 0
         except Exception:
             x = 0
     if len(list_of_pdf) == 0:
         print("No PDFs found")
-    else:
-        print(list_of_pdf)
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
