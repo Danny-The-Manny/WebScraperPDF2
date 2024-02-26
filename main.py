@@ -9,7 +9,10 @@ print("Warning: For educational use only")
 print("Make sure to validate the integrity of sites before downloading from them.")
 print()
 # Gets the name of what pdf the user is searching for
-pdfname = input("Enter the name of the pdf you are searching for: ")
+pdfname = ""
+while "SPDF " not in pdfname:
+    pdfname = input()
+pdfname = pdfname[pdfname.find("SPDF"):]
 print()
 print("PDF Link(s):")
 # info on the find and replace method https://www.geeksforgeeks.org/python-string-replace/
