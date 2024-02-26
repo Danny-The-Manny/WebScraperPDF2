@@ -4,8 +4,13 @@ from bs4 import BeautifulSoup
 
 # Help on importing a github project: https://stackoverflow.com/questions/41023928/import-github-repository-to-pycharm
 
+# warning
+print("Warning: For educational use only")
+print("Make sure to validate the integrity of sites before downloading from them.")
+print()
 # Gets the name of what pdf the user is searching for
 pdfname = input("Enter the name of the pdf you are searching for: ")
+print()
 print("PDF Link(s):")
 # info on the find and replace method https://www.geeksforgeeks.org/python-string-replace/
 # Credit to Jason for string concatenation clarification
