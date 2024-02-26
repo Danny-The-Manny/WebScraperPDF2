@@ -33,7 +33,6 @@ if __name__ == '__main__':
     # Parse the html content
     soup = BeautifulSoup(html_content, "html.parser")
     # This is the getting pdf part
-    print(soup)
     # created an empty list for putting the pdfs
     list_of_pdf = set()
 
@@ -47,13 +46,36 @@ if __name__ == '__main__':
 
     # iterate through p for getting all the href links
     for link in p:
-        # original html links
-        # info on finding if string contains substring from: https://stackoverflow.com/questions/3437059/does-python-have-a-string-contains-substring-method
-        href_link = link.get('href')
-        if "/url?q=" in href_link and "http" in href_link:
-            base_link = href_link[href_link.find("/url?q")+7:]
-            # get the url from requests get method
-            print(base_link)
+        try:
+            # original html links
+            # info on finding if string contains substring from: https://stackoverflow.com/questions/3437059/does-python-have-a-string-contains-substring-method
+            href_link = link.get('href')
+            if "/url?q=" in href_link and "http" in href_link:
+                base_link = href_link[href_link.find("/url?q")+7:]
+                # get the url from requests get method
+                base_link = base_link[:base_link.find("&sa=")]
+                # credit for info on try acceptclauses
+                read = requests.get(base_link)
+                html_content = read.content
+                new_soup = BeautifulSoup(html_content, "html.parser")
+                p = soup.find_all('a')
+                for new_link in p:
+                    try:
+                        new_href_link = link.get('href')
+                        if "/url?q=" in new_href_link and "http" in new_href_link:
+                            final_link = new_href_link[new_href_link.find("/url?q") + 7:]
+                            final_link = final_link[:final_link.find("&sa=")]
+                            if ".pdf" in final_link:
+                                list_of_pdf.add(base_link)
+                    except Exception:
+                        x = 0
+        except Exception:
+            x = 0
+    if len(list_of_pdf) == 0:
+        print("No PDFs found")
+    else:
+        print(list_of_pdf)
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
