@@ -1,7 +1,8 @@
 This file is a PDF scraper made by Joshua Cogburn and Daniel Ramirez
 
-Command (space after SPDF necessary):
-SPDF enternametosearchhere
+Commands:
+-f enternametosearchhere (finds potential free pdfs of the name entered)
+-b (ends program)
 
 The scraper operates as follows after the command is entered:
 The user input will be appended to a variable
