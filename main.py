@@ -40,6 +40,7 @@ while True:
         # iterate through p for getting all the href links
         for link in p:
             # Mostly fails if school blocking interferes
+            # Info on try-except from: https://www.geeksforgeeks.org/python-try-except/
             try:
                 # original html links
                 # info on finding if string contains substring from: https://stackoverflow.com/questions/3437059/does-python-have-a-string-contains-substring-method
