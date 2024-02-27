@@ -53,14 +53,14 @@ while True:
 
                     # repeat previous steps on the link variable
                     read = requests.get(base_link)
+                    html_content = read.content
+                    new_soup = BeautifulSoup(html_content, "html.parser")
+                    g = soup.find_all('a')
                     # Tests to see if the link is a PDF
                     if ".pdf" in base_link:
                         list_of_pdf.add(base_link)
                         print(base_link)
                     else:
-                        html_content = read.content
-                        new_soup = BeautifulSoup(html_content, "html.parser")
-                        g = soup.find_all('a')
                         for new_link in g:
                             try:
                                 new_href_link = link.get('href')
